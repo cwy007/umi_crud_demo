@@ -1,10 +1,11 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
+import styles from './index.scss';
 
 const index = () => {
   return (
-    <Layout>
+    <Layout className={styles.layout}>
       <Sider breakpoint="lg" collapsedWidth={0}>
         <div className="title">米修在线</div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>

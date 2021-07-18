@@ -8,5 +8,9 @@ export default defineConfig({
     // { path: '/', component: '@/pages/index' },
     { path: '/', component: '@/layout/index' },
   ],
+  sass: {
+    implementation: require('node-sass'),
+  },
+  cssModulesTypescriptLoader: {},
   fastRefresh: {},
 });
