@@ -2,18 +2,20 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import styles from './index.scss';
-import { Link } from 'umi';
+import { Link, useHistory } from 'umi';
 
 const index = (props: { children: React.ReactNode }) => {
+  const { location } = useHistory();
+
   return (
     <Layout className={styles.layout}>
       <Sider breakpoint="lg" collapsedWidth={0}>
         <div className="title">米修在线</div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
+        <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]}>
+          <Menu.Item key="/course">
             <Link to="/course">课程记录</Link>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="/about">
             <Link to="/about">关于我们</Link>
           </Menu.Item>
         </Menu>

@@ -11,6 +11,10 @@ export default defineConfig({
       component: '@/layout/index',
       routes: [
         {
+          path: '/',
+          redirect: '/course',
+        },
+        {
           path: '/course',
           component: './Course',
         },
