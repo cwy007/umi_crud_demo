@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Table, Input } from 'antd';
 import { Link } from 'umi';
 import axios from 'axios';
 
+const { Search } = Input;
+
 const index: React.FC<any> = () => {
   const [datas, setDatas] = useState([]);
+  const [keyword, setKeyword] = useState<string>('');
 
+  const getData = async (params?: any) => {
+    const res = await axios.get('/api/courseList', { params });
+    if (res && res.data && res.data.datas) {
+      setDatas(res.data.datas);
+    }
+  };
   useEffect(() => {
-    const getData = async () => {
-      const res = await axios.get('/api/courseList');
-      if (res && res.data && res.data.datas) {
-        setDatas(res.data.datas);
-      }
-    };
-    getData();
-  }, []);
+    getData({ keywords: keyword });
+  }, [keyword]);
 
   const columns = [
     {
@@ -61,8 +64,19 @@ const index: React.FC<any> = () => {
     },
   ];
 
+  const onSearch = (text: string) => {
+    setKeyword(text);
+    getData({ keywords: text });
+  };
+
   return (
     <div>
+      <Search
+        placeholder="请输入搜索的课程名称"
+        onSearch={onSearch}
+        style={{ width: 200 }}
+      />
+
       <Table
         columns={columns}
         dataSource={datas}
