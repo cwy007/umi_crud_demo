@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { Link } from 'umi';
+import axios from 'axios';
 
-const index = () => {
+const index: React.FC<any> = () => {
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get('/api/courseList');
+      if (res && res.data && res.data.datas) {
+        setDatas(res.data.datas);
+      }
+    };
+    getData();
+  }, []);
+
   const columns = [
     {
       title: '课程类别',
@@ -50,7 +63,11 @@ const index = () => {
 
   return (
     <div>
-      <Table columns={columns} />
+      <Table
+        columns={columns}
+        dataSource={datas}
+        rowKey={(datas: { id: string }) => datas.id}
+      />
     </div>
   );
 };
